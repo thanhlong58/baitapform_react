@@ -4,18 +4,40 @@ import FormRegister from './FormRegister'
 
 class BaiTapForm extends Component {
     state = {
-        userEdit : {
-            id : '',
-            name : '',
-            phone : '',
-            email : ''
-        }
-    }
-
+  userEdit: {
+    id: '',
+    name: '',
+    phone: '',
+    email: ''
+  },
+  inputDisabled : false 
+}
     editUser  =  (userClick) => {
         this.setState ({
             userEdit : userClick
         })
+    }
+    updateUser = (updatedUser) => {
+        
+        const action = {
+          type: 'UPDATE_USER',
+          payload:  updatedUser
+        };
+        this.props.dispatch(action);
+        this.setState ({
+            inputDisabled : false
+        })
+      };
+
+
+    handleSearch = (e)  => {
+        const value = e.target.value;
+        const action = {
+            type : 'HANDLE_SEARCH',
+            payload : value
+        }
+
+        this.props.dispatch(action)
     }
 
    
@@ -23,12 +45,11 @@ class BaiTapForm extends Component {
         return (
             <div className='container pt-5'>
                
-                <FormRegister userEdit = {this.state.userEdit} />
+                <FormRegister inputDisabled = {this.state.inputDisabled} arrUser = {this.props.arrUser}  userEdit = {this.state.userEdit}   updateUser={this.updateUser}/>
 
-                <form action="/search" method="GET" className='my-5' >
-                    <input type="text" name="query" placeholder="Search..." />
-                    <input type="submit" defaultValue="Search" />
-                </form>
+                
+                    <input onInput={this.handleSearch} type="text"  placeholder="Search..." />
+
 
                 <table className='table  mt-5'>
                     <thead className='bg-dark text-white'>
@@ -63,6 +84,9 @@ class BaiTapForm extends Component {
                                         console.log(item);
                                         console.log(124253)
                                         this.editUser(item)
+                                       this.setState ({
+                                        inputDisabled : true
+                                       })
                                     }}>
                                         <i class="fa fa-edit"></i>
                                     </button>
