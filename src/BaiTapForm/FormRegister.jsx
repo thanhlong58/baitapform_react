@@ -2,8 +2,12 @@ import React, { Component, PureComponent } from 'react'
 import { connect } from 'react-redux'
 
  class FormRegister extends  Component {
+
+   
   handleChange = (e) => {
    let checkId = e.target.getAttribute('check-id')
+
+   
    console.log(checkId)
    let dataType = e.target.getAttribute('data-type')
    const {value,id} = e.target
@@ -28,6 +32,21 @@ import { connect } from 'react-redux'
    this.props.dispatch(action);
    
   }
+  componentDidUpdate(prevProps) {
+    if (prevProps.userEdit !== this.props.userEdit) {
+      const { id, name, phone, email } = this.props.userEdit;
+  
+      this.props.dispatch({
+        type: 'UPDATE_FORM_VALUES',
+        payload: {
+          id,
+          name,
+          phone,
+          email,
+        },
+      });
+    }
+  }
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -49,7 +68,6 @@ import { connect } from 'react-redux'
   }
  
   
- 
   
 
 
@@ -70,7 +88,7 @@ import { connect } from 'react-redux'
                 <div className='col-6'>
                     <div className='form-group'>
                        <p>ID</p>
-                      <input  check-id='id' data-type = 'number' className='form-control' id='id' name='id' value={id} onChange={this.handleChange} />
+                      <input   disabled = {this.props.inputDisabled}  check-id='id' data-type = 'number' className='form-control' id='id' name='id' value={id} onChange={this.handleChange} />
                       <p className='text-danger'>{this.props.validation.id}</p>
                     </div>
                 </div>
@@ -87,7 +105,7 @@ import { connect } from 'react-redux'
                 <div className='col-6'>
                     <div className='form-group'>
                        <p>Phone</p>
-                      <input data-phone='phone' data-type = 'number' className='form-control' id='phone' name='phone' value={phone }  onChange={this.handleChange} />
+                      <input   data-phone='phone' data-type = 'number' className='form-control' id='phone' name='phone' value={phone }  onChange={this.handleChange} />
                       <p className='text-danger'>{this.props.validation.phone}</p>
                     </div>
                 </div>
@@ -102,7 +120,11 @@ import { connect } from 'react-redux'
         </div>
         <div className='card-footer'>
             <button className='btn btn-success mx-2' disabled={this.props.inValid} >Add</button>
-            <button className='btn btn-primary mx-2' type='button' >Update</button>
+            <button id="btnUpdate" className='btn btn-primary mx-2' type='button' onClick={()=>{
+             
+              this.props.updateUser(this.props.userRegister);
+              this.resetForm()
+            }}>Update</button>
 
         </div>
       </form>

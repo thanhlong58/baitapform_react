@@ -23,7 +23,7 @@ export const userRegisterReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'HANDLE_FORM': {
             //values
-            const { id, value, dataType, arrUser,checkId} = action.payload;
+            const { id, value, dataType, arrUser, checkId } = action.payload;
             console.log(arrUser)
             const newValues = { ...state.values, [id]: value };
             console.log(newValues)
@@ -67,15 +67,15 @@ export const userRegisterReducer = (state = initialState, action) => {
 
 
             if (checkId) {
-                for ( let user of arrUser) {
-                    if(user.id == newValues.id) {
-                  messageErrors = 'Id is already register'
+                for (let user of arrUser) {
+                    if (user.id == newValues.id) {
+                        messageErrors = 'Id is already register'
                     }
-                   
-                 }
+
+                }
             }
 
-           
+
 
             newValidations[id] = messageErrors
 
@@ -88,6 +88,18 @@ export const userRegisterReducer = (state = initialState, action) => {
         case "RESET_FORM": {
             return initialState;
         }
+        case 'UPDATE_FORM_VALUES':
+            return {
+                ...state,
+                values: {
+                    id: action.payload.id,
+                    name: action.payload.name,
+                    phone: action.payload.phone,
+                    email: action.payload.email,
+                },
+            };
+         
+       
 
         default:
             return state;
