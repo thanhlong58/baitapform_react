@@ -35,13 +35,14 @@ export const userRegisterReducer = (state = initialState, action) => {
 
             let messageErrors = '';
             if (value.trim() === '') {
+                
                 messageErrors = `${id} cannot be blank!`
             } else {
                 switch (dataType) {
                     case 'number': {
                         let regexNumber = /^[0-9]+$/;
                         if (!regexNumber.test(value)) {
-                            messageErrors = `${id} must be a number`
+                            messageErrors = ` ${id} must be a number`
                         }
                     }; break;
 

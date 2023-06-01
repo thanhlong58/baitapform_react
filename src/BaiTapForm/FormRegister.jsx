@@ -47,7 +47,7 @@ import { connect } from 'react-redux'
       });
     }
   }
-
+ 
   handleSubmit = (e) => {
     e.preventDefault();
     const values =  this.props.userRegister
@@ -120,10 +120,11 @@ import { connect } from 'react-redux'
         </div>
         <div className='card-footer'>
             <button className='btn btn-success mx-2' disabled={this.props.inValid} >Add</button>
-            <button id="btnUpdate" className='btn btn-primary mx-2' type='button' onClick={()=>{
+            <button   disabled={this.props.btnUpdateDisabled}  id="btnUpdate" className='btn btn-primary mx-2' type='button' onClick={()=>{
              
               this.props.updateUser(this.props.userRegister);
               this.resetForm()
+              
             }}>Update</button>
 
         </div>

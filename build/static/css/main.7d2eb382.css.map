@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/main.7d2eb382.css","mappings":"AAAA,wBACI,SACJ,CCFA,iBACI,aACJ","sources":["ComponentWithStyle/style.module.css","assets/styles/styles.css"],"sourcesContent":[".color-red{\n    color: red;\n}",".color-dark-blue {\n    color:darkblue;\n}"],"names":[],"sourceRoot":""}
